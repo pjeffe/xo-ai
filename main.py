@@ -1,3 +1,5 @@
+from asyncio import (set_event_loop, new_event_loop, run)
+import os
 import guidance
 import streamlit as st
 import json
@@ -486,11 +488,11 @@ class Agent:
         return self.max_score
 
 
-def main():
+async def main():
     canned_tests = {"Low": test_data.baseball_poor, "Medium": test_data.baseball_fair, "High": test_data.baseball_excellent}
     try:
         if 'agent' not in st.session_state:
-            api_key = st.secrets.open_api_key
+            api_key = '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' #os.environ['open_api_key']
             st.session_state.agent = Agent(api_key)
         agent: Agent = st.session_state.agent
 
@@ -590,4 +592,6 @@ Your responses will be graded according to this rubric:
         st.write('Error occurred, please try again later\n\n')
         st.write(traceback.format_exc())
 
-main()
+loop = new_event_loop()
+set_event_loop(loop)
+run(main())
