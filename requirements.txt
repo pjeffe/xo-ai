@@ -1,0 +1,2 @@
+guidance~=0.0.64
+streamlit~=1.26.0
